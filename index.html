@@ -169,25 +169,26 @@
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
     /* Home button (footer) - visible on every slide */
-    .home-btn{
-      position:fixed;
-      right:2vw;
-      bottom:1.6vh;
-      z-index:9999;
-      width:44px;
-      height:44px;
-      border-radius:8px;
-      border:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(255,255,255,0.95);
-      color:var(--todini-blue);
-      box-shadow:0 6px 18px rgba(0,0,0,0.12);
-      cursor:pointer;
-      transition:transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
-      font-size:1.05rem;
-    }
+  .home-btn{
+    position: fixed;
+    left: 50%; /* Sposta il bottone al 50% da sinistra */
+    bottom: 1.6vh;
+    z-index: 9999;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.95);
+    color: var(--todini-blue);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+    font-size: 1.05rem;
+    transform: translateX(-50%); /* Compensa il 50% della larghezza del bottone */
+}
     .home-btn:focus{outline:3px solid #ffd54f;outline-offset:3px}
     .home-btn:hover{transform:translateY(-3px)}
     .home-btn .fa-home{pointer-events:none}
