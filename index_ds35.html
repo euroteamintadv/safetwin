@@ -779,15 +779,15 @@
         </div>
       </section>
 
-      <!-- 5 – VIDEO AGGIORNATO -->
+      <!-- 5 – VIDEO LOCALE CON AUTOPLAY -->
       <section>
         <div class="content-container">
           <h2>Ripresa aerea di opere con webcam AI</h2>
           <div class="video-container">
-            <video controls poster="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
-              <source src="https://videos.pexels.com/video-files/33394053/your-video-file.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+              <source src="volo-hd_1280_720_30fps.mp4" type="video/mp4">
               <!-- Fallback per browser che non supportano il video -->
-              <p>Il tuo browser non supporta il tag video. <a href="https://videos.pexels.com/video-files/33394053/your-video-file.mp4" download>Scarica il video</a></p>
+              <p>Il tuo browser non supporta il tag video. <a href="volo-hd_1280_720_30fps.mp4" download>Scarica il video</a></p>
             </video>
             <div class="video-overlay"></div>
           </div>
@@ -945,7 +945,7 @@
       center: false,
       transition: 'fade',
       backgroundTransition: 'fade',
-      autoPlayMedia: false,
+      autoPlayMedia: true, // Abilitato per permettere autoplay del video
       width: '100%',
       height: '100%',
       margin: 0,
@@ -953,6 +953,36 @@
       maxScale: 2.0,
       mobileView: 'auto'
     });
+
+    // Gestione autoplay del video quando la slide diventa visibile
+    Reveal.addEventListener('slidechanged', function(event) {
+      // Ferma tutti i video quando si cambia slide
+      document.querySelectorAll('video').forEach(video => {
+        video.pause();
+      });
+      
+      // Se la slide corrente contiene un video, lo fa partire
+      const currentVideo = event.currentSlide.querySelector('video');
+      if (currentVideo) {
+        currentVideo.play().catch(e => {
+          console.log('Autoplay non permesso dal browser, richiesta interazione utente');
+        });
+      }
+    });
+
+    // Gestione autoplay quando la slide del video viene caricata inizialmente
+    const videoSlide = document.querySelector('section:nth-child(5)');
+    if (videoSlide) {
+      const video = videoSlide.querySelector('video');
+      if (video) {
+        // Prova a far partire il video quando la pagina è caricata
+        setTimeout(() => {
+          video.play().catch(e => {
+            console.log('Autoplay ritardato non permesso');
+          });
+        }, 1000);
+      }
+    }
   </script>
 </body>
 </html>
