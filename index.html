@@ -225,21 +225,25 @@
     .proposal-phase .phase-icon{font-size:2rem;color:var(--todini-green);margin-bottom:0.75rem}
     .proposal-phase p{color:var(--text-gray);margin:0.35rem 0; font-size:clamp(0.9rem, 1.8vw, 1.1rem);}
 
-    /* ARCHITETTURA MIGLIORATA - CONTRASTO MIGLIORATO CON INDICATORI SCROLL */
+    /* ARCHITETTURA MIGLIORATA - CON SCROLL E TESTO VISIBILE */
     .architecture-container{
       background:white;
       border-radius:12px;
-      padding:1.5rem;
+      padding:1rem;
       box-shadow:0 8px 25px rgba(0,0,0,0.12);
-      max-height:68vh;
-      overflow:hidden;
+      max-height:55vh;
+      overflow:auto;
       width: 100%;
       position: relative;
     }
 
     /* Indicatori di scroll */
     .scroll-indicator {
-      display: none;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.3rem;
@@ -275,33 +279,44 @@
     }
     
     .architecture-layer{
-      margin-bottom:1rem;
-      padding:1.2rem;
+      margin-bottom:0.8rem;
+      padding:1rem;
       border-left:4px solid var(--todini-blue);
       background: var(--todini-dark-blue);
       border-radius: 8px;
     }
-    
+
     .architecture-layer h3{
       color: white !important;
       margin-top: 0;
-      margin-bottom: 0.8rem;
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      margin-bottom: 0.6rem;
+      font-size: clamp(0.95rem, 2.3vw, 1.2rem);
     }
-    
+
     .architecture-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      gap:0.8rem
+      gap:0.6rem
     }
-    
+
     .architecture-item{
       background:white;
-      padding:0.8rem;
+      padding:0.5rem;
       border-radius:6px;
       border:1px solid var(--medium-gray);
       text-align:center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: var(--dark-gray);
+    }
+
+    .architecture-item strong{
+      color: var(--todini-blue);
+      font-size: 0.95rem;
+    }
+
+    .architecture-item div{
+      color: var(--todini-blue);
+      margin-top: 0.2rem;
     }
 
     .video-container{width:100%;max-width:900px;margin:0 auto;position:relative}
