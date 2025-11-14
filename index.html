@@ -30,6 +30,9 @@
       --spacing-md:1.4rem;
       --spacing-lg:2.5rem;
       --max-content-width:1200px;
+      --header-height:clamp(36px, 7vh, 68px);
+      --header-top:1.6vh;
+      --content-top:calc(var(--header-height) + var(--header-top) + 2vh);
     }
 
     *{box-sizing:border-box}
@@ -67,9 +70,14 @@
 
     .reveal{width:100vw;height:100vh;background:white}
     .reveal .slides{width:100%;height:100%}
+    
+    /* SLIDE LAYOUT UNIFICATO */
     .reveal section{
-      padding:4vh 4vw !important;
-      display:flex!important;
+      padding-top: var(--content-top) !important;
+      padding-left: 4vw !important;
+      padding-right: 4vw !important;
+      padding-bottom: 4vh !important;
+      display:flex !important;
       flex-direction:column;
       justify-content:center;
       align-items:flex-start;
@@ -80,52 +88,225 @@
       position:relative;
     }
 
-    /* Typography migliorata */
+    /* Header unificato per tutte le slide */
+    .slide-header {
+      position: absolute;
+      top: var(--header-top);
+      left: 2vw;
+      right: 2vw;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 20;
+    }
+
+    .slide-logo {
+      height: 100%;
+      max-height: var(--header-height);
+    }
+
+    .slide-number {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--todini-blue);
+      font-weight: 600;
+      background: rgba(255,255,255,0.9);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .blue-slide .slide-number {
+      color: white;
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* Typography migliorata - TESTI PIÙ GRANDI E LEGGIBILI */
     .reveal h1,.reveal h2,.reveal h3{font-family:'Libre Baskerville',serif;color:var(--todini-blue);font-weight:700;line-height:1.2;margin-bottom:1rem}
     .reveal h1{font-size:clamp(2rem,5vw,3.2rem)}
     .reveal h2{font-size:clamp(1.4rem,3.5vw,2.4rem);border-bottom:3px solid var(--todini-green);padding-bottom:1rem;margin-bottom:1.5rem}
     .reveal h3{font-size:clamp(1.1rem,3vw,1.8rem);color:var(--todini-green);margin-bottom:1rem}
     .reveal p{font-size:clamp(0.95rem,2vw,1.15rem);line-height:1.5;margin-bottom:1rem;color:var(--dark-gray)}
 
-    .reveal .logo{
-      position:absolute;
-      top:1.6vh;
-      left:2vw;
-      height:clamp(36px,7vh,68px);
-      z-index:20;
+    /* LISTE MIGLIORATE - TESTI RIDOTTI PER EVITARE OVERFLOW */
+    ul.icon-list,ol.icon-list{
+      list-style:none;
+      padding-left:0;
+      margin:1.5rem 0;
+      width:100%;
     }
+    
+    .icon-list li{
+      position:relative;
+      padding-left:clamp(40px, 5vw, 60px);
+      margin-bottom:clamp(0.8rem, 2vh, 1.2rem);
+      color:var(--text-gray);
+      font-size:clamp(0.9rem, 2vw, 1.1rem);
+      line-height:1.4;
+      font-weight:500;
+    }
+    
+    .icon-list li i{
+      position:absolute;
+      left:0;
+      top:0;
+      color:var(--todini-blue);
+      font-size:clamp(1.2rem, 2.5vw, 1.6rem);
+      width:clamp(36px, 4vw, 50px);
+      text-align:center;
+      padding-top:0.1em;
+    }
+    
+    /* LISTE PIÙ GRANDI PER SLIDE 6 (SICUREZZA) */
+    .security-list li {
+      font-size: clamp(1rem, 2.2vw, 1.3rem) !important;
+      margin-bottom: clamp(1rem, 2.5vh, 1.5rem) !important;
+      padding-left: clamp(44px, 5.5vw, 65px) !important;
+    }
+    
+    .security-list li i {
+      font-size: clamp(1.3rem, 2.8vw, 1.7rem) !important;
+      width: clamp(40px, 4.5vw, 55px) !important;
+    }
+    
+    .blue-slide .icon-list li i{color:white}
+    .blue-slide .icon-list li{color:rgba(255,255,255,0.95)}
 
     .reveal .blue-slide{background:linear-gradient(135deg,var(--todini-blue) 0%,var(--todini-dark-blue) 100%);color:white}
     .reveal .blue-slide h1,.reveal .blue-slide h2,.reveal .blue-slide h3,.reveal .blue-slide p{color:white}
     .reveal .blue-slide h2{border-bottom-color:rgba(255,255,255,0.9)}
 
-    .content-container{width:100%;max-width:var(--max-content-width);margin:0 auto;display:flex;flex-direction:column;gap:1rem}
-    .two-column{display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:center;width:100%}
-    .text-content{display:flex;flex-direction:column;justify-content:center;min-height:40vh}
-    .visual-content{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:40vh}
+    .content-container{
+      width:100%;
+      max-width:var(--max-content-width);
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      /* Assicura che il contenuto parta sempre dalla stessa altezza */
+      margin-top: 0;
+    }
+    
+    .two-column{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:clamp(2rem, 4vw, 4rem);
+      align-items:center;
+      width:100%;
+    }
+    
+    .text-content{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      min-height:40vh;
+      width:100%;
+    }
+    
+    .visual-content{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      min-height:40vh;
+      width:100%;
+    }
 
     .reveal img{max-width:100%;height:auto;border-radius:8px;box-shadow:0 8px 25px rgba(0,0,0,0.12)}
     .reveal img[loading]{display:block}
     .photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1vh;margin:2vh 0}
     .photo-grid img{width:100%;height:18vh;object-fit:cover;border-radius:6px}
 
-    ul.icon-list,ol.icon-list{list-style:none;padding-left:0;margin:0}
-    .icon-list li{position:relative;padding-left:48px;margin-bottom:1rem;color:var(--text-gray);font-size:clamp(0.95rem,2vw,1.05rem)}
-    .icon-list li i{position:absolute;left:0;top:0;color:var(--todini-blue);font-size:1.2rem;width:40px;text-align:center}
-    .blue-slide .icon-list li i{color:white}
-    .blue-slide .icon-list li{color:rgba(255,255,255,0.95)}
-
     .proposal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0}
     .proposal-phase{background:white;border-radius:12px;padding:1.5rem;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,0.08);border-top:5px solid var(--todini-green);transition:transform 0.25s ease}
     .proposal-phase:hover{transform:translateY(-6px)}
-    .proposal-phase h4{color:var(--todini-blue);margin-bottom:0.5rem}
+    .proposal-phase h4{color:var(--todini-blue);margin-bottom:0.5rem; font-size:clamp(1rem, 2vw, 1.3rem);}
     .proposal-phase .phase-icon{font-size:2rem;color:var(--todini-green);margin-bottom:0.75rem}
-    .proposal-phase p{color:var(--text-gray);margin:0.35rem 0}
+    .proposal-phase p{color:var(--text-gray);margin:0.35rem 0; font-size:clamp(0.9rem, 1.8vw, 1.1rem);}
 
-    .architecture-container{background:white;border-radius:12px;padding:1.5rem;box-shadow:0 8px 25px rgba(0,0,0,0.12);max-height:60vh;overflow:auto}
-    .architecture-layer{margin-bottom:1rem;padding:1rem;border-left:4px solid var(--todini-blue);background:var(--light-gray)}
-    .architecture-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.8rem}
-    .architecture-item{background:white;padding:0.8rem;border-radius:6px;border:1px solid var(--medium-gray);text-align:center}
+    /* ARCHITETTURA MIGLIORATA - CONTRASTO MIGLIORATO CON INDICATORI SCROLL */
+    .architecture-container{
+      background:white;
+      border-radius:12px;
+      padding:1.5rem;
+      box-shadow:0 8px 25px rgba(0,0,0,0.12);
+      max-height:55vh;
+      overflow:auto;
+      width: 100%;
+      position: relative;
+    }
+    
+    /* Indicatori di scroll */
+    .scroll-indicator {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      pointer-events: none;
+    }
+    
+    .scroll-indicator.top {
+      top: 0.5rem;
+    }
+    
+    .scroll-indicator.bottom {
+      bottom: 0.5rem;
+    }
+    
+    .scroll-indicator i {
+      color: var(--todini-blue);
+      font-size: 1.2rem;
+      opacity: 0.7;
+      animation: bounce 2s infinite;
+    }
+    
+    .scroll-indicator span {
+      font-size: 0.8rem;
+      color: var(--todini-blue);
+      font-weight: 600;
+      opacity: 0.8;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-5px);}
+      60% {transform: translateY(-3px);}
+    }
+    
+    .architecture-layer{
+      margin-bottom:1rem;
+      padding:1.2rem;
+      border-left:4px solid var(--todini-blue);
+      background: var(--todini-dark-blue);
+      border-radius: 8px;
+    }
+    
+    .architecture-layer h3{
+      color: white !important;
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+    }
+    
+    .architecture-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:0.8rem
+    }
+    
+    .architecture-item{
+      background:white;
+      padding:0.8rem;
+      border-radius:6px;
+      border:1px solid var(--medium-gray);
+      text-align:center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
 
     .video-container{width:100%;max-width:900px;margin:0 auto;position:relative}
     .video-container video{width:100%;height:auto;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.18);display:block}
@@ -186,20 +367,90 @@
     }
 
     @media (max-width:900px){
-      .two-column{grid-template-columns:1fr;gap:1.2rem}
+      .two-column{
+        grid-template-columns:1fr;
+        gap:clamp(1.5rem, 3vh, 2.5rem);
+      }
       .proposal-grid{grid-template-columns:1fr}
       .photo-grid{grid-template-columns:1fr}
       .photo-grid img{height:12vh}
-      .reveal section{padding:3vh 4vw !important}
-      .logo{height:40px}
+      .reveal section{
+        padding:3vh 4vw !important; 
+        padding-top: var(--content-top) !important;
+      }
+      .slide-header { 
+        left: 3vw; 
+        right: 3vw; 
+      }
+      /* Miglioramenti mobile per liste */
+      .icon-list li {
+        padding-left: clamp(40px, 6vw, 55px);
+        margin-bottom: clamp(0.8rem, 2vh, 1.2rem);
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      }
+      .icon-list li i {
+        font-size: clamp(1.1rem, 3vw, 1.4rem);
+        width: clamp(36px, 5vw, 45px);
+      }
+      
+      /* Security list mobile */
+      .security-list li {
+        font-size: clamp(1rem, 3vw, 1.2rem) !important;
+        margin-bottom: clamp(1rem, 2.5vh, 1.5rem) !important;
+      }
+      
+      /* Architettura mobile */
+      .architecture-container {
+        max-height: 50vh;
+        padding: 1rem;
+      }
+      .architecture-layer {
+        padding: 1rem;
+      }
+      .architecture-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+      
+      /* Nascondi indicatori scroll su mobile se non necessario */
+      .scroll-indicator {
+        display: none;
+      }
     }
 
     @media (max-width:480px){
-      .reveal section{padding:2vh 3vw !important}
-      .logo{height:34px;top:1vh;left:3vw}
-      .icon-list li{padding-left:42px}
+      .reveal section{
+        padding:2vh 3vw !important; 
+        padding-top: var(--content-top) !important;
+      }
+      .slide-header { 
+        left: 3vw; 
+        right: 3vw; 
+      }
+      .icon-list li{
+        padding-left:38px;
+        font-size: clamp(0.85rem, 3vw, 1rem);
+        margin-bottom: 0.8rem;
+      }
+      
+      .security-list li {
+        padding-left: 42px !important;
+        font-size: clamp(0.95rem, 3.5vw, 1.1rem) !important;
+      }
+      
       .home-btn{width:44px;height:44px;bottom:1.2vh}
       .home-btn .label{display:none !important}
+      
+      /* Architettura mobile piccolo */
+      .architecture-container {
+        max-height: 45vh;
+        padding: 0.8rem;
+      }
+      .architecture-layer {
+        padding: 0.8rem;
+      }
+      .architecture-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -211,7 +462,10 @@
 
       <!-- 1 – Copertina -->
       <section class="blue-slide" aria-label="Copertina">
-        <img src="LogoTod.png" class="logo" alt="Logo Todini Costruzioni Generali" />
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">1/10</div>
+        </div>
         <div class="content-container" style="text-align:left">
           <h1>SafeTwin Platform</h1>
           <h2>Monitoraggio predittivo per grandi infrastrutture</h2>
@@ -227,6 +481,10 @@
 
       <!-- 2 – Contesto Todini -->
       <section aria-label="Contesto Todini">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">2/10</div>
+        </div>
         <div class="content-container">
           <h2>Contesto operativo Todini</h2>
           <div class="two-column">
@@ -250,8 +508,12 @@
         </div>
       </section>
 
-      <!-- 3 – SafeTwin: cosa è -->
+      <!-- 3 – SafeTwin: cosa è - SLIDE MIGLIORATA -->
       <section aria-label="Presentazione SafeTwin">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">3/10</div>
+        </div>
         <div class="content-container">
           <h2>SafeTwin Platform</h2>
           <div class="two-column">
@@ -281,10 +543,11 @@
                 </div>
               </div>
 
-              <ul>
-                <li class="fragment">Architettura multi-tenant, scalabile, GDPR-compliant</li>
-                <li class="fragment">Accessibile 100% web, ottimizzata per cantiere (PWA)</li>
-                <li class="fragment">Integrazione nativa con sistemi esistenti (BIM, ERP)</li>
+              <!-- LISTE CON DIMENSIONI RIDOTTE -->
+              <ul class="icon-list">
+                <li class="fragment"><i class="fas fa-building" aria-hidden="true"></i> Architettura multi-tenant, scalabile, GDPR-compliant</li>
+                <li class="fragment"><i class="fas fa-globe" aria-hidden="true"></i> Accessibile 100% web, ottimizzata per cantiere (PWA)</li>
+                <li class="fragment"><i class="fas fa-plug" aria-hidden="true"></i> Integrazione nativa con sistemi esistenti (BIM, ERP)</li>
               </ul>
             </div>
 
@@ -296,11 +559,22 @@
         </div>
       </section>
 
-      <!-- 4 – Architettura tecnica -->
+      <!-- 4 – Architettura tecnica - SLIDE MIGLIORATA CON INDICATORI SCROLL -->
       <section class="blue-slide" aria-label="Architettura tecnica">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">4/10</div>
+        </div>
         <div class="content-container">
           <h2>Architettura tecnica</h2>
           <div class="architecture-container" role="region" aria-label="Dettagli architettura">
+            <!-- Indicatore scroll superiore -->
+            <div class="scroll-indicator top">
+              <i class="fas fa-chevron-up"></i>
+              <span>Scorri per vedere tutti i layer</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            
             <div class="architecture-layer">
               <h3>EDGE LAYER (Cantiere)</h3>
               <div class="architecture-grid">
@@ -337,6 +611,13 @@
                 <div class="architecture-item"><strong>Allarmi</strong><div style="color:var(--todini-blue)">SMS/Push</div></div>
               </div>
             </div>
+            
+            <!-- Indicatore scroll inferiore -->
+            <div class="scroll-indicator bottom">
+              <i class="fas fa-chevron-up"></i>
+              <span>Altri layer sopra</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
           </div>
 
           <p class="fragment" style="color:white;font-weight:600;margin-top:1rem;text-align:center">
@@ -347,6 +628,10 @@
 
       <!-- 5 – VIDEO -->
       <section aria-label="Dimostrazione video">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">5/10</div>
+        </div>
         <div class="content-container">
           <h2>Monitoraggio con webcam AI</h2>
           <div class="video-container" aria-label="Video dimostrativo">
@@ -376,14 +661,19 @@
         </div>
       </section>
 
-      <!-- 6 – Sicurezza -->
+      <!-- 6 – Sicurezza - SLIDE MIGLIORATA CON TESTI PIÙ GRANDI -->
       <section aria-label="Sicurezza cantiere">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">6/10</div>
+        </div>
         <div class="content-container">
           <h2>Soluzioni per Todini</h2>
           <h3>Sicurezza cantiere avanzata</h3>
           <div class="two-column">
             <div class="text-content">
-              <ul class="icon-list">
+              <!-- LISTE CON TESTI PIÙ GRANDI -->
+              <ul class="icon-list security-list">
                 <li class="fragment"><i class="fas fa-bell" aria-hidden="true"></i> Allarmi SMS/push in <strong>meno di 60 secondi</strong></li>
                 <li class="fragment"><i class="fas fa-chart-line" aria-hidden="true"></i> Previsione cedimenti e vibrazioni a <strong>24-48 ore</strong></li>
                 <li class="fragment"><i class="fas fa-shield-alt" aria-hidden="true"></i> Integrazione con piano HSE e procedure di emergenza</li>
@@ -398,8 +688,12 @@
         </div>
       </section>
 
-      <!-- 7 – Collaudo -->
+      <!-- 7 – Collaudo - SLIDE MIGLIORATA -->
       <section class="blue-slide" aria-label="Collaudo opere">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">7/10</div>
+        </div>
         <div class="content-container">
           <h2>Soluzioni per Todini</h2>
           <h3>Collaudo e consegna opere</h3>
@@ -413,8 +707,10 @@
               </ul>
             </div>
             <div class="visual-content" aria-hidden="true">
-              <img loading="lazy" src="AI_stampa_collaudo.JPG" alt="Documentazione collaudo" />
-              <p class="image-caption">Documentazione automatica per collaudi</p>
+              <img loading="lazy" src="AI_stampa_collaudo.JPG" alt="Documentazione automatica per collaudi tecnici" 
+                   onerror="console.warn('Immagine collaudo non trovata: AI_stampa_collaudo.JPG')" 
+                   style="max-height: 50vh; object-fit: contain;" />
+              <p class="image-caption" style="color: rgba(255,255,255,0.9); margin-top: 1rem;">Documentazione automatica per collaudi</p>
             </div>
           </div>
         </div>
@@ -422,6 +718,10 @@
 
       <!-- 8 – Manutenzione -->
       <section aria-label="Manutenzione predittiva">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">8/10</div>
+        </div>
         <div class="content-container">
           <h2>Soluzioni per Todini</h2>
           <h3>Manutenzione predittiva post-costruzione</h3>
@@ -444,6 +744,10 @@
 
       <!-- 9 – Proposta -->
       <section class="blue-slide" aria-label="Proposta operativa">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">9/10</div>
+        </div>
         <div class="content-container">
           <h2>Piano di implementazione</h2>
 
@@ -484,6 +788,10 @@
 
       <!-- 10 – Chiusura -->
       <section class="blue-slide" aria-label="Contatti">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">10/10</div>
+        </div>
         <div class="content-container" style="text-align:center">
           <h1>Grazie per l'attenzione</h1>
           <p>Siamo pronti a partire con il progetto pilota.<br />Attendiamo le vostre priorità per definire il perimetro operativo.</p>
