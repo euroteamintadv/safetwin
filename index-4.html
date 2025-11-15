@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SafeTwin Platform – Monitoraggio predittivo per grandi infrastrutture. Proposta tecnica per Todini Costruzioni Generali." />
+  <meta name="theme-color" content="#003366" />
+  <title>SafeTwin Platform – Todini Costruzioni Generali</title>
+
+  <!-- Preconnect per performance -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="icon" href="LogoTod.png" type="image/png" />
+
+  <style>
+    :root{
+      --todini-blue:#003366;
+      --todini-dark-blue:#002244;
+      --todini-green:#006837;
+      --todini-light-blue:#3a6ea5;
+      --light-gray:#f8f9fa;
+      --medium-gray:#e9ecef;
+      --dark-gray:#495057;
+      --text-gray:#6c757d;
+      --spacing-sm:0.7rem;
+      --spacing-md:1.4rem;
+      --spacing-lg:2.5rem;
+      --max-content-width:1200px;
+      --header-height:clamp(36px, 7vh, 68px);
+      --header-top:1.6vh;
+      --content-top:calc(var(--header-height) + var(--header-top) + 2vh);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Open Sans',sans-serif;
+      color:var(--dark-gray);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background:#fff;
+      min-height:100vh;
+    }
+
+    a.skip-link{
+      position:fixed;
+      left:-999px;
+      top:auto;
+      width:1px;
+      height:1px;
+      overflow:hidden;
+    }
+    a.skip-link:focus{
+      left:1rem;
+      top:1rem;
+      width:auto;
+      height:auto;
+      background:#fff;
+      color:var(--todini-blue);
+      padding:0.5rem 0.75rem;
+      z-index:9999;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15);
+      border-radius:6px;
+    }
+
+    .reveal{width:100vw;height:100vh;background:white}
+    .reveal .slides{width:100%;height:100%}
+    
+    /* SLIDE LAYOUT UNIFICATO */
+    .reveal section{
+      padding-top: var(--content-top) !important;
+      padding-left: 4vw !important;
+      padding-right: 4vw !important;
+      padding-bottom: 4vh !important;
+      display:flex !important;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      box-sizing:border-box;
+      background:white;
+      min-height:100%;
+      overflow:auto;
+      position:relative;
+    }
+
+    /* Header unificato per tutte le slide */
+    .slide-header {
+      position: absolute;
+      top: var(--header-top);
+      left: 2vw;
+      right: 2vw;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 20;
+    }
+
+    .slide-logo {
+      height: 100%;
+      max-height: var(--header-height);
+    }
+
+    .slide-number {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--todini-blue);
+      font-weight: 600;
+      background: rgba(255,255,255,0.9);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .blue-slide .slide-number {
+      color: white;
+      background: rgba(255,255,255,0.15);
+    }
+
+    /* Typography migliorata */
+    .reveal h1,.reveal h2,.reveal h3{font-family:'Libre Baskerville',serif;color:var(--todini-blue);font-weight:700;line-height:1.2;margin-bottom:1rem}
+    .reveal h1{font-size:clamp(2rem,5vw,3.2rem)}
+    .reveal h2{font-size:clamp(1.4rem,3.5vw,2.4rem);border-bottom:3px solid var(--todini-green);padding-bottom:1rem;margin-bottom:1.5rem}
+    .reveal h3{font-size:clamp(1.1rem,3vw,1.8rem);color:var(--todini-green);margin-bottom:1rem}
+    .reveal p{font-size:clamp(0.95rem,2vw,1.15rem);line-height:1.5;margin-bottom:1rem;color:var(--dark-gray)}
+
+    /* LISTE MIGLIORATE */
+    ul.icon-list,ol.icon-list{
+      list-style:none;
+      padding-left:0;
+      margin:1.5rem 0;
+      width:100%;
+    }
+    
+    .icon-list li{
+      position:relative;
+      padding-left:clamp(40px, 5vw, 60px);
+      margin-bottom:clamp(0.8rem, 2vh, 1.2rem);
+      color:var(--text-gray);
+      font-size:clamp(0.9rem, 2vw, 1.1rem);
+      line-height:1.4;
+      font-weight:500;
+    }
+    
+    .icon-list li i{
+      position:absolute;
+      left:0;
+      top:0;
+      color:var(--todini-blue);
+      font-size:clamp(1.2rem, 2.5vw, 1.6rem);
+      width:clamp(36px, 4vw, 50px);
+      text-align:center;
+      padding-top:0.1em;
+    }
+    
+    /* LISTE PIÙ GRANDI PER SLIDE 6 (SICUREZZA) */
+    .security-list li {
+      font-size: clamp(1rem, 2.2vw, 1.3rem) !important;
+      margin-bottom: clamp(1rem, 2.5vh, 1.5rem) !important;
+      padding-left: clamp(44px, 5.5vw, 65px) !important;
+    }
+    
+    .security-list li i {
+      font-size: clamp(1.3rem, 2.8vw, 1.7rem) !important;
+      width: clamp(40px, 4.5vw, 55px) !important;
+    }
+    
+    .blue-slide .icon-list li i{color:white}
+    .blue-slide .icon-list li{color:rgba(255,255,255,0.95)}
+
+    .reveal .blue-slide{background:linear-gradient(135deg,var(--todini-blue) 0%,var(--todini-dark-blue) 100%);color:white}
+    .reveal .blue-slide h1,.reveal .blue-slide h2,.reveal .blue-slide h3,.reveal .blue-slide p{color:white}
+    .reveal .blue-slide h2{border-bottom-color:rgba(255,255,255,0.9)}
+
+    .content-container{
+      width:100%;
+      max-width:var(--max-content-width);
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      margin-top: 0;
+    }
+    
+    .two-column{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:clamp(2rem, 4vw, 4rem);
+      align-items:center;
+      width:100%;
+    }
+    
+    .text-content{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      min-height:40vh;
+      width:100%;
+    }
+    
+    .visual-content{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      min-height:40vh;
+      width:100%;
+    }
+
+    .reveal img{max-width:100%;height:auto;border-radius:8px;box-shadow:0 8px 25px rgba(0,0,0,0.12)}
+    .reveal img[loading]{display:block}
+    .photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1vh;margin:2vh 0}
+    .photo-grid img{width:100%;height:18vh;object-fit:cover;border-radius:6px}
+
+    .proposal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2rem 0}
+    .proposal-phase{background:white;border-radius:12px;padding:1.5rem;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,0.08);border-top:5px solid var(--todini-green);transition:transform 0.25s ease}
+    .proposal-phase:hover{transform:translateY(-6px)}
+    .proposal-phase h4{color:var(--todini-blue);margin-bottom:0.5rem; font-size:clamp(1rem, 2vw, 1.3rem);}
+    .proposal-phase .phase-icon{font-size:2rem;color:var(--todini-green);margin-bottom:0.75rem}
+    .proposal-phase p{color:var(--text-gray);margin:0.35rem 0; font-size:clamp(0.9rem, 1.8vw, 1.1rem);}
+
+    /* ARCHITETTURA MIGLIORATA - CONTRASTO MIGLIORATO CON INDICATORI SCROLL */
+    .architecture-container{
+      background:white;
+      border-radius:12px;
+      padding:1.5rem;
+      box-shadow:0 8px 25px rgba(0,0,0,0.12);
+      max-height:58vh;
+      overflow:auto;
+      width: 100%;
+      position: relative;
+    }
+
+    /* CODE BLOCKS OTTIMIZZATI */
+    .code-block{
+      background:white;
+      border-radius:8px;
+      overflow:hidden;
+      box-shadow:0 3px 10px rgba(0,0,0,0.15);
+      border:1px solid var(--medium-gray);
+    }
+
+    .code-header{
+      background:var(--todini-blue);
+      color:white;
+      padding:0.4rem 0.7rem;
+      font-size:0.8rem;
+      font-weight:600;
+      font-family:'Open Sans',sans-serif;
+      border-bottom:2px solid var(--todini-green);
+    }
+
+    .code-block pre{
+      background:#1e1e1e;
+      color:#d4d4d4;
+      padding:0.7rem;
+      margin:0;
+      font-family:'Courier New',Consolas,Monaco,monospace;
+      font-size:0.7rem;
+      line-height:1.4;
+      overflow-x:auto;
+      max-height:200px;
+    }
+
+    .code-block code{
+      color:#d4d4d4;
+      font-family:inherit;
+    }
+    
+    .architecture-layer{
+      margin-bottom:1rem;
+      padding:1.2rem;
+      border-left:4px solid var(--todini-blue);
+      background: var(--todini-dark-blue);
+      border-radius: 8px;
+    }
+    
+    .architecture-layer h3{
+      color: white !important;
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+    }
+    
+    .architecture-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:0.8rem
+    }
+    
+    .architecture-item{
+      background:white;
+      padding:0.8rem;
+      border-radius:6px;
+      border:1px solid var(--medium-gray);
+      text-align:center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .video-container{width:100%;max-width:900px;margin:0 auto;position:relative}
+    .video-container video{width:100%;height:auto;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.18);display:block}
+    .video-overlay{position:absolute;inset:0;border-radius:12px;pointer-events:none;background:linear-gradient(135deg,rgba(0,51,102,0.06),transparent)}
+    .video-play-cta{
+      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;
+      background:rgba(0,0,0,0.6);color:#fff;padding:0.7rem 1rem;border-radius:999px;display:flex;align-items:center;gap:0.6rem;cursor:pointer;
+      backdrop-filter:blur(2px)
+    }
+    .video-play-cta i{font-size:1.2rem}
+
+    .contact-info{display:flex;flex-wrap:wrap;justify-content:center;margin-top:1.5rem;gap:1rem}
+    .contact-item{display:flex;align-items:center;font-size:clamp(0.95rem,2vw,1.1rem)}
+    .contact-item i{margin-right:0.6rem;color:var(--todini-blue)}
+
+    .card{background:var(--light-gray);padding:0.9rem;border-radius:8px;box-shadow:none}
+
+    /* Stili per gestione immagini mancanti */
+    .image-fallback {
+      background: linear-gradient(135deg, var(--todini-blue) 0%, var(--todini-dark-blue) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      min-height: 200px;
+      width: 100%;
+    }
+    
+    .image-fallback i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.8;
+    }
+
+    :focus{outline:3px solid #ffd54f;outline-offset:3px}
+    :focus:not(:focus-visible){outline: none}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* Home button FIXED */
+    .home-btn{
+      position:fixed;
+      left:50%;
+      bottom:1.6vh;
+      z-index:9999;
+      width:44px;
+      height:44px;
+      border-radius:8px;
+      border:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,0.95);
+      color:var(--todini-blue);
+      box-shadow:0 6px 18px rgba(0,0,0,0.12);
+      cursor:pointer;
+      transition:transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+      font-size:1.05rem;
+      transform:translateX(-50%);
+    }
+    .home-btn:focus{outline:3px solid #ffd54f;outline-offset:3px}
+    .home-btn:hover{transform:translateX(-50%) translateY(-3px)}
+    .home-btn .fa-home{pointer-events:none}
+    .home-btn .label{display:none}
+
+    .home-btn.on-dark{
+      background:rgba(0,0,0,0.18);
+      color:#fff;
+      box-shadow:0 6px 18px rgba(0,0,0,0.28);
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    @media(min-width:1100px){
+      .home-btn{width:auto;padding:0 12px;border-radius:22px;height:44px}
+      .home-btn .label{display:inline-block !important;margin-left:8px;font-size:0.95rem}
+    }
+
+    @media (max-width:900px){
+      .two-column{
+        grid-template-columns:1fr;
+        gap:clamp(1.5rem, 3vh, 2.5rem);
+      }
+      .proposal-grid{grid-template-columns:1fr}
+      .photo-grid{grid-template-columns:1fr}
+      .photo-grid img{height:12vh}
+      .reveal section{
+        padding:3vh 4vw !important; 
+        padding-top: var(--content-top) !important;
+      }
+      .slide-header { 
+        left: 3vw; 
+        right: 3vw; 
+      }
+      /* Miglioramenti mobile per liste */
+      .icon-list li {
+        padding-left: clamp(40px, 6vw, 55px);
+        margin-bottom: clamp(0.8rem, 2vh, 1.2rem);
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      }
+      .icon-list li i {
+        font-size: clamp(1.1rem, 3vw, 1.4rem);
+        width: clamp(36px, 5vw, 45px);
+      }
+      
+      /* Security list mobile */
+      .security-list li {
+        font-size: clamp(1rem, 3vw, 1.2rem) !important;
+        margin-bottom: clamp(1rem, 2.5vh, 1.5rem) !important;
+      }
+      
+      /* Architettura mobile */
+      .architecture-container {
+        max-height: 52vh;
+        padding: 1rem;
+      }
+      .architecture-layer {
+        padding: 1rem;
+      }
+      .architecture-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Code blocks mobile */
+      .code-block pre {
+        font-size: 0.65rem;
+        padding: 0.5rem;
+        max-height: 180px;
+      }
+
+      .code-header {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.6rem;
+      }
+
+      /* Layout colonne codice su mobile */
+      .architecture-layer > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 0.8rem;
+      }
+    }
+
+    @media (max-width:480px){
+      .reveal section{
+        padding:2vh 3vw !important; 
+        padding-top: var(--content-top) !important;
+      }
+      .slide-header { 
+        left: 3vw; 
+        right: 3vw; 
+      }
+      .icon-list li{
+        padding-left:38px;
+        font-size: clamp(0.85rem, 3vw, 1rem);
+        margin-bottom: 0.8rem;
+      }
+      
+      .security-list li {
+        padding-left: 42px !important;
+        font-size: clamp(0.95rem, 3.5vw, 1.1rem) !important;
+      }
+      
+      .home-btn{width:44px;height:44px;bottom:1.2vh}
+      .home-btn .label{display:none !important}
+      
+      /* Architettura mobile piccolo */
+      .architecture-container {
+        max-height: 48vh;
+        padding: 0.8rem;
+      }
+      .architecture-layer {
+        padding: 0.8rem;
+        margin-bottom: 0.8rem;
+      }
+      .architecture-layer h3 {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+      }
+
+      /* Code blocks mobile piccolo */
+      .code-block pre {
+        font-size: 0.6rem;
+        padding: 0.4rem;
+        max-height: 150px;
+        line-height: 1.3;
+      }
+
+      .code-header {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Salta al contenuto principale</a>
+
+  <div class="reveal" role="application" aria-label="Presentazione SafeTwin">
+    <div class="slides" id="main">
+
+      <!-- 1 – Copertina -->
+      <section class="blue-slide" aria-label="Copertina">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">1/10</div>
+        </div>
+        <div class="content-container" style="text-align:left">
+          <h1>SafeTwin Platform</h1>
+          <h2>Monitoraggio predittivo per grandi infrastrutture</h2>
+          <p>
+            <strong>Proposta tecnica per Todini Costruzioni Generali S.p.A.</strong><br />
+            Incontro del 12 novembre 2025
+          </p>
+          <div aria-hidden="true" style="margin-top:1.2rem;">
+            <i class="fas fa-chevron-down fa-2x" style="opacity:0.75;color:rgba(255,255,255,0.9)"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 – Contesto Todini -->
+      <section aria-label="Contesto Todini">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">2/10</div>
+        </div>
+        <div class="content-container">
+          <h2>Contesto operativo Todini</h2>
+          <div class="two-column">
+            <div class="text-content">
+              <ul class="icon-list">
+                <li class="fragment"><i class="fas fa-history" aria-hidden="true"></i> <strong>70+ anni</strong> di esperienza in oltre <strong>50 paesi</strong></li>
+                <li class="fragment"><i class="fas fa-road" aria-hidden="true"></i> <strong>Grandi opere</strong>: autostrade, viadotti, gallerie, dighe</li>
+                <li class="fragment"><i class="fas fa-landmark" aria-hidden="true"></i> <strong>Committenti primari</strong>: ANAS, RFI, BERS, Banca Mondiale</li>
+                <li class="fragment"><i class="fas fa-digital-tachograph" aria-hidden="true"></i> <strong>Conformità normativa</strong>: PNRR, BIM 7D, ISO 45001</li>
+              </ul>
+            </div>
+            <div class="visual-content" aria-hidden="true">
+              <div class="photo-grid">
+                <img loading="lazy" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Grandi infrastrutture" />
+                <img loading="lazy" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Cantiere moderno" />
+                <img loading="lazy" src="https://images.unsplash.com/photo-1581094794355-1d9d10c8ed6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Infrastrutture complesse" />
+                <img loading="lazy" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Tecnologia in cantiere" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 – SafeTwin: cosa è -->
+      <section aria-label="Presentazione SafeTwin">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">3/10</div>
+        </div>
+        <div class="content-container">
+          <h2>SafeTwin Platform</h2>
+          <div class="two-column">
+            <div class="text-content">
+              <p>
+                <strong>Sistema SaaS integrato</strong> per il monitoraggio strutturale e geotecnico in tempo reale, 
+                con capacità predittive e integrazione BIM completa.
+              </p>
+
+              <div class="card fragment" role="region" aria-label="Architettura del flusso dati">
+                <h3>Flusso dati integrato</h3>
+                <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+                  <div style="text-align:center;flex:1;min-width:120px">
+                    <i class="fas fa-satellite-dish fa-2x" style="color:var(--todini-blue);" aria-hidden="true"></i>
+                    <p style="font-size:0.95rem;margin:0"><strong>Sensori IoT</strong></p>
+                  </div>
+                  <div aria-hidden="true"><i class="fas fa-arrow-right" style="color:var(--dark-gray)"></i></div>
+                  <div style="text-align:center;flex:1;min-width:120px">
+                    <i class="fas fa-cloud fa-2x" style="color:var(--todini-blue)" aria-hidden="true"></i>
+                    <p style="font-size:0.95rem;margin:0"><strong>Cloud</strong></p>
+                  </div>
+                  <div aria-hidden="true"><i class="fas fa-arrow-right" style="color:var(--dark-gray)"></i></div>
+                  <div style="text-align:center;flex:1;min-width:120px">
+                    <i class="fas fa-chart-line fa-2x" style="color:var(--todini-blue)" aria-hidden="true"></i>
+                    <p style="font-size:0.95rem;margin:0"><strong>Dashboard + AI</strong></p>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="icon-list">
+                <li class="fragment"><i class="fas fa-building" aria-hidden="true"></i> <strong>Architettura cloud</strong>: multi-tenant, scalabile, GDPR-compliant</li>
+                <li class="fragment"><i class="fas fa-globe" aria-hidden="true"></i> <strong>100% web</strong>: accessibile ovunque, ottimizzata per cantiere (PWA)</li>
+                <li class="fragment"><i class="fas fa-plug" aria-hidden="true"></i> <strong>Integrazione totale</strong>: compatibile con BIM, ERP esistenti</li>
+              </ul>
+            </div>
+
+            <div class="visual-content" aria-hidden="true">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Dashboard di monitoraggio predittivo" />
+              <p class="image-caption">Dashboard di monitoraggio predittivo</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 – Architettura tecnica -->
+      <section class="blue-slide" aria-label="Architettura tecnica">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">4/10</div>
+        </div>
+        <div class="content-container">
+          <h2>Architettura tecnica - Stack completo</h2>
+          <div class="architecture-container" role="region" aria-label="Dettagli architettura">
+
+            <div class="architecture-layer">
+              <h3><i class="fas fa-broadcast-tower"></i> EDGE LAYER - Acquisizione Dati</h3>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:0.5rem">
+                <div class="code-block">
+                  <div class="code-header">Sensori IoT → MQTT</div>
+                  <pre style="margin:0;font-size:0.75rem;line-height:1.3;overflow-x:auto"><code>{
+  "sensor_id": "INC-001",
+  "type": "inclinometro",
+  "protocol": "LoRaWAN",
+  "freq": "868MHz",
+  "interval": 60,
+  "payload": {
+    "angle_x": 0.023,
+    "angle_y": -0.012,
+    "temp": 18.5
+  }
+}</code></pre>
+                </div>
+                <div class="code-block">
+                  <div class="code-header">Config Gateway</div>
+                  <pre style="margin:0;font-size:0.75rem;line-height:1.3;overflow-x:auto"><code>mqtt:
+  broker: "mqtt.safetwin.cloud"
+  port: 8883
+  tls: true
+  qos: 2
+  topics:
+    - "site/todini/+/telemetry"
+    - "site/todini/+/alerts"</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="architecture-layer">
+              <h3><i class="fas fa-cloud-upload-alt"></i> INGESTION - Normalizzazione Stream</h3>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:0.5rem">
+                <div class="code-block">
+                  <div class="code-header">MQTT Broker (EMQX)</div>
+                  <pre style="margin:0;font-size:0.75rem;line-height:1.3;overflow-x:auto"><code>listeners.ssl.external = 8883
+mqtt.max_packet_size = 1MB
+mqtt.max_clientid_len = 256
+
+# Auth & ACL
+auth.postgres.server = db:5432
+acl.postgres.auth_query =
+  SELECT * FROM mqtt_acl
+  WHERE client_id = %c</code></pre>
+                </div>
+                <div class="code-block">
+                  <div class="code-header">Node-RED Flow</div>
+                  <pre style="margin:0;font-size:0.75rem;line-height:1.3;overflow-x:auto"><code>// Normalizzazione payload
+msg.payload = {
+  timestamp: Date.now(),
+  site_id: msg.topic.split('/')[2],
+  sensor: msg.payload.sensor_id,
+  values: transform(msg.payload),
+  quality: validateQoS(msg)
+};
+return msg;</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="architecture-layer">
+              <h3><i class="fas fa-database"></i> STORAGE - Time-Series + Relazionale</h3>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:0.5rem">
+                <div class="code-block">
+                  <div class="code-header">TimescaleDB Hypertable</div>
+                  <pre style="margin:0;font-size:0.75rem;line-height:1.3;overflow-x:auto"><code>CREATE TABLE sensor_data (
+  time TIMESTAMPTZ NOT NULL,
+  sensor_id VARCHAR(50),
+  metric VARCHAR(50),
+  value DOUBLE PRECISION,
+  quality INTEGER
+);
+
+SELECT create_hypertable(
+  'sensor_data', 'time',
+  chunk_time_interval =>
+    INTERVAL '1 day'
+);</code></pre>
+                </div>
+                <div class="code-block">
+                  <div class="code-header">API REST (FastAPI)</div>
+                  <pre style="margin:0;font-size:0.75rem;line-height:1.3;overflow-x:auto"><code>@app.get("/api/v1/sensors/{id}")
+async def get_sensor_data(
+  id: str,
+  start: datetime,
+  end: datetime
+) -> SensorResponse:
+  query = """
+    SELECT * FROM sensor_data
+    WHERE sensor_id = $1
+    AND time >= $2 AND time <= $3
+  """
+  return await db.fetch(query)</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="architecture-layer">
+              <h3><i class="fas fa-brain"></i> AI/ML - Analisi Predittiva</h3>
+              <div class="code-block" style="margin-top:0.5rem">
+                <div class="code-header">Modello Predittivo (Python)</div>
+                <pre style="margin:0;font-size:0.75rem;line-height:1.3;overflow-x:auto"><code>import tensorflow as tf
+from sklearn.preprocessing import StandardScaler
+
+# LSTM per previsione cedimenti 24-48h
+model = tf.keras.Sequential([
+    LSTM(128, return_sequences=True, input_shape=(168, 12)),
+    Dropout(0.2),
+    LSTM(64),
+    Dense(48, activation='relu'),
+    Dense(24)  # Previsione 24 ore
+])
+
+# Training su dati storici: MSE < 0.001mm, R² > 0.95
+model.compile(optimizer='adam', loss='mse', metrics=['mae'])</code></pre>
+              </div>
+            </div>
+
+            <div class="architecture-layer">
+              <h3><i class="fas fa-chart-line"></i> PRESENTATION - Dashboard & Alerting</h3>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:0.5rem">
+                <div class="code-block">
+                  <div class="code-header">Grafana Dashboard</div>
+                  <pre style="margin:0;font-size:0.75rem;line-height:1.3;overflow-x:auto"><code>{
+  "datasource": "TimescaleDB",
+  "panels": [{
+    "title": "Inclinometri Real-Time",
+    "targets": [{
+      "query": "SELECT time,
+        avg(value) as angle
+        FROM sensor_data
+        WHERE metric='angle_x'
+        AND time > now() - 24h
+        GROUP BY time(5m)"
+    }]
+  }]
+}</code></pre>
+                </div>
+                <div class="code-block">
+                  <div class="code-header">Sistema Allarmi</div>
+                  <pre style="margin:0;font-size:0.75rem;line-height:1.3;overflow-x:auto"><code>// Alert Rules Engine
+if (sensorValue > threshold) {
+  alert = {
+    level: "CRITICAL",
+    channels: ["sms", "push"],
+    recipients: site.hseTecm,
+    message: `Soglia superata:
+      ${sensorValue}mm > ${threshold}mm`,
+    actions: ["stop_work", "notify"]
+  };
+  sendAlert(alert);  // < 60 sec
+}</code></pre>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <p class="fragment" style="color:white;font-weight:600;margin-top:1rem;text-align:center;font-size:0.95rem">
+            <i class="fas fa-check-circle"></i> Stack produzione-ready: 1M+ datapoints/sec • SLA 99.9% • ISO 27001 compliant
+          </p>
+        </div>
+      </section>
+
+      <!-- 5 – VIDEO -->
+      <section aria-label="Dimostrazione video">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">5/10</div>
+        </div>
+        <div class="content-container">
+          <h2>Monitoraggio con webcam AI</h2>
+          <div class="video-container" aria-label="Video dimostrativo">
+            <video id="site-video" poster="volo-poster.jpg" preload="metadata" playsinline muted loop>
+              <source src="volo-hd_1280_720_30fps.mp4" type="video/mp4" />
+              <p>Il tuo browser non supporta il video. <a href="volo-hd_1280_720_30fps.mp4" download>Scarica il video</a></p>
+            </video>
+
+            <button id="video-cta" class="video-play-cta" aria-label="Riproduci video dimostrativo">
+              <i class="fas fa-play" aria-hidden="true"></i><span>Riproduci</span>
+            </button>
+
+            <div class="video-overlay" aria-hidden="true"></div>
+          </div>
+
+          <p style="margin-top:1rem;text-align:center">
+            <strong>Monitoraggio in tempo reale con webcam AI integrate</strong><br />
+            Rilevamento automatico di attività e anomalie
+          </p>
+
+          <div class="card" style="margin-top:0.8rem">
+            <p style="text-align:center;margin:0">
+              <i class="fas fa-robot" style="color:var(--todini-green);margin-right:10px"></i>
+              <strong>Integrazione webcam AI per analisi automatica di sicurezza, progressi lavori e anomalie strutturali</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 – Sicurezza -->
+      <section aria-label="Sicurezza cantiere">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">6/10</div>
+        </div>
+        <div class="content-container">
+          <h2>Soluzioni per Todini</h2>
+          <h3>Sicurezza cantiere avanzata</h3>
+          <div class="two-column">
+            <div class="text-content">
+              <ul class="icon-list security-list">
+                <li class="fragment"><i class="fas fa-bell" aria-hidden="true"></i> <strong>Allarmi immediati</strong>: notifiche SMS/push in <strong>&lt;60 secondi</strong></li>
+                <li class="fragment"><i class="fas fa-chart-line" aria-hidden="true"></i> <strong>Previsione anticipata</strong>: cedimenti/vibrazioni a <strong>24-48h</strong></li>
+                <li class="fragment"><i class="fas fa-shield-alt" aria-hidden="true"></i> <strong>Conformità HSE</strong>: integrato con piani emergenza</li>
+                <li class="fragment"><i class="fas fa-file-contract" aria-hidden="true"></i> <strong>Audit automatizzati</strong>: reportistica completa per ispezioni</li>
+              </ul>
+            </div>
+            <div class="visual-content" aria-hidden="true">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sicurezza in cantiere" style="max-height: 45vh; object-fit: contain;" />
+              <p class="image-caption">Monitoraggio sicurezza in tempo reale</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7 – Collaudo -->
+      <section class="blue-slide" aria-label="Collaudo opere">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">7/10</div>
+        </div>
+        <div class="content-container">
+          <h2>Soluzioni per Todini</h2>
+          <h3>Collaudo e consegna opere</h3>
+          <div class="two-column">
+            <div class="text-content">
+              <ul class="icon-list">
+                <li class="fragment"><i class="fas fa-file-pdf" aria-hidden="true"></i> <strong>Report automatici</strong>: PDF con trend e conformità <strong>NTC 2018</strong></li>
+                <li class="fragment"><i class="fas fa-balance-scale" aria-hidden="true"></i> <strong>Validazione tecnica</strong>: confronto sensori vs modelli FEM</li>
+                <li class="fragment"><i class="fas fa-exchange-alt" aria-hidden="true"></i> <strong>Export diretto</strong>: formati compatibili ANAS e committenti</li>
+                <li class="fragment"><i class="fas fa-database" aria-hidden="true"></i> <strong>Archiviazione digitale</strong>: conservazione conforme <strong>10+ anni</strong></li>
+              </ul>
+            </div>
+            <div class="visual-content" aria-hidden="true">
+              <!-- Gestione robusta immagine collaudo -->
+              <div id="collaudo-image-container" style="max-height: 35vh; display: flex; align-items: center; justify-content: center;">
+                <img
+                  id="collaudo-img"
+                  loading="lazy"
+                  src="./AI_stampa_collaudo.JPG"
+                  alt="Documentazione automatica per collaudi tecnici"
+                  style="max-height: 100%; max-width: 100%; object-fit: contain; border-radius: 8px; display: none;"
+                  onload="this.style.display='block'; document.getElementById('fallback-container').style.display='none';"
+                />
+                <div id="fallback-container" class="image-fallback" style="max-height: 35vh; min-height: 200px; width: 100%;">
+                  <i class="fas fa-file-contract"></i>
+                  <p>Documentazione di collaudo automatica<br><small>AI_stampa_collaudo.JPG</small></p>
+                </div>
+              </div>
+              <p class="image-caption" style="color: rgba(255,255,255,0.9); margin-top: 1rem;">Documentazione automatica per collaudi</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8 – Manutenzione -->
+      <section aria-label="Manutenzione predittiva">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">8/10</div>
+        </div>
+        <div class="content-container">
+          <h2>Soluzioni per Todini</h2>
+          <h3>Manutenzione predittiva post-costruzione</h3>
+          <div class="two-column">
+            <div class="text-content">
+              <ul class="icon-list">
+                <li class="fragment"><i class="fas fa-eye" aria-hidden="true"></i> <strong>Monitoraggio continuo</strong>: sensori permanenti <strong>24/7</strong></li>
+                <li class="fragment"><i class="fas fa-sync-alt" aria-hidden="true"></i> <strong>Digital Twin dinamico</strong>: BIM aggiornato in tempo reale</li>
+                <li class="fragment"><i class="fas fa-chart-line" aria-hidden="true"></i> <strong>Meno ispezioni</strong>: riduzione controlli manuali del <strong>30-50%</strong></li>
+                <li class="fragment"><i class="fas fa-euro-sign" aria-hidden="true"></i> <strong>Risparmio economico</strong>: ottimizzazione costi fino al <strong>40%</strong></li>
+              </ul>
+            </div>
+            <div class="visual-content" aria-hidden="true">
+              <img loading="lazy" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Manutenzione infrastrutture" />
+              <p class="image-caption">Monitoraggio continuo infrastrutture</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9 – Proposta -->
+      <section class="blue-slide" aria-label="Proposta operativa">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">9/10</div>
+        </div>
+        <div class="content-container">
+          <h2>Piano di implementazione</h2>
+
+          <div class="proposal-grid" role="list">
+            <div class="proposal-phase fragment" role="listitem">
+              <div class="phase-icon"><i class="fas fa-rocket" aria-hidden="true"></i></div>
+              <h4>FASE 1: PROGETTO PILOTA</h4>
+              <p class="duration"><strong>6 mesi</strong></p>
+              <p>10-15 sensori + dashboard + allarmi</p>
+              <p style="font-size:0.9em;margin-top:0.5rem;color:var(--todini-blue)">Implementazione su 1 cantiere pilota</p>
+            </div>
+
+            <div class="proposal-phase fragment" role="listitem">
+              <div class="phase-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
+              <h4>FASE 2: FORMAZIONE</h4>
+              <p class="duration"><strong>2 sessioni</strong></p>
+              <p>Project Manager + HSE + Ingegneri</p>
+              <p style="font-size:0.9em;margin-top:0.5rem;color:var(--todini-blue)">Training completo del personale</p>
+            </div>
+
+            <div class="proposal-phase fragment" role="listitem">
+              <div class="phase-icon"><i class="fas fa-expand-arrows-alt" aria-hidden="true"></i></div>
+              <h4>FASE 3: SCALABILITÀ</h4>
+              <p class="duration"><strong>Post-pilota</strong></p>
+              <p>Estensione ad altri cantieri</p>
+              <p style="font-size:0.9em;margin-top:0.5rem;color:var(--todini-blue)">Soluzione white-label disponibile</p>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:1rem;background:rgba(255,255,255,0.1);color:white">
+            <p style="text-align:center;margin:0">
+              <i class="fas fa-info-circle" aria-hidden="true"></i>
+              <strong>Impegno risorse Todini: da definire in base al cantiere pilota</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 – Chiusura -->
+      <section class="blue-slide" aria-label="Contatti">
+        <div class="slide-header">
+          <img src="LogoTod.png" class="slide-logo" alt="Logo Todini Costruzioni Generali" />
+          <div class="slide-number">10/10</div>
+        </div>
+        <div class="content-container" style="text-align:center">
+          <h1>Grazie per l'attenzione</h1>
+          <p>Siamo pronti a partire con il progetto pilota.<br />Attendiamo le vostre priorità per definire il perimetro operativo.</p>
+          <div class="contact-info" role="contentinfo">
+            <div class="contact-item"><i class="fas fa-user" aria-hidden="true"></i><span>Alberto Finelli</span></div>
+            <div class="contact-item"><i class="fas fa-briefcase" aria-hidden="true"></i><span>Project Director & Software Architect</span></div>
+            <div class="contact-item"><i class="fas fa-envelope" aria-hidden="true"></i><span>alberto.finelli@safetwin.com</span></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Home Button -->
+    <button id="home-btn" class="home-btn" aria-label="Torna alla copertina" title="Home (Torna alla copertina)">
+      <i class="fas fa-home" aria-hidden="true"></i><span class="label">Home</span>
+    </button>
+
+  </div>
+
+  <noscript>
+    <div style="padding:1rem;background:#fff8c4;color:#332a00;text-align:center">
+      <strong>JavaScript richiesto</strong><br />
+      Per visualizzare la presentazione correttamente, abilita JavaScript nel tuo browser.
+    </div>
+  </noscript>
+
+  <!-- Script -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.min.js" defer></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      // Inizializzazione Reveal
+      Reveal.initialize({
+        hash: true,
+        controls: true,
+        progress: true,
+        center: false,
+        transition: 'fade',
+        backgroundTransition: 'fade',
+        autoPlayMedia: false,
+        width: '100%',
+        height: '100%',
+        margin: 0,
+        minScale: 0.1,
+        maxScale: 2.0,
+        viewDistance: 3,
+      });
+
+      const video = document.getElementById('site-video');
+      const cta = document.getElementById('video-cta');
+      const homeBtn = document.getElementById('home-btn');
+
+      // Controllo elementi esistenti
+      if (!video || !cta) {
+        console.warn('Elementi video non trovati, funzionalità video disabilitata');
+      }
+
+      function pauseAllVideos() {
+        document.querySelectorAll('video').forEach(v => {
+          try { 
+            if (v && !v.paused) v.pause(); 
+          } catch (e) {
+            console.warn('Errore nella pausa video:', e);
+          }
+        });
+      }
+
+      function goHome() {
+        try {
+          Reveal.slide(0, 0);
+          const firstSlide = document.querySelector('.reveal .slides section');
+          if (firstSlide) {
+            firstSlide.setAttribute('tabindex', '-1');
+            firstSlide.focus();
+          }
+        } catch (e) {
+          window.location.hash = '/';
+        }
+      }
+
+      // Gestione home button
+      if (homeBtn) {
+        homeBtn.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          goHome();
+        });
+      }
+
+      // Gestione cambio slide
+      Reveal.addEventListener('slidechanged', function (event) {
+        pauseAllVideos();
+
+        const current = event.currentSlide;
+        if (current) {
+          // Gestione video
+          const v = current.querySelector('video');
+          if (v && cta) {
+            v.play().then(() => {
+              cta.style.display = 'none';
+              if (v) v.muted = true;
+            }).catch(() => {
+              cta.style.display = 'flex';
+            });
+          } else if (cta) {
+            cta.style.display = 'none';
+          }
+
+          // Gestione stile home button
+          if (current.classList.contains('blue-slide')) {
+            homeBtn.classList.add('on-dark');
+          } else {
+            homeBtn.classList.remove('on-dark');
+          }
+        }
+      });
+
+      // Gestione CTA video
+      if (cta && video) {
+        cta.addEventListener('click', function () {
+          if (video) {
+            video.muted = false;
+            video.play().then(() => {
+              cta.style.display = 'none';
+            }).catch((e) => {
+              console.error('Errore riproduzione video:', e);
+              cta.style.display = 'flex';
+            });
+          }
+        });
+      }
+
+      // Gestione immagine collaudo
+      const collaudoImg = document.getElementById('collaudo-img');
+      const fallbackContainer = document.getElementById('fallback-container');
+      
+      if (collaudoImg) {
+        console.log('🔍 Controllo immagine collaudo...');
+        
+        // Testa se l'immagine esiste
+        const testImage = new Image();
+        testImage.onload = function() {
+          console.log('✅ Immagine trovata:', collaudoImg.src);
+          collaudoImg.style.display = 'block';
+          if (fallbackContainer) fallbackContainer.style.display = 'none';
+        };
+        
+        testImage.onerror = function() {
+          console.warn('❌ Immagine non trovata:', collaudoImg.src);
+          console.log('🔄 Tentativo percorsi alternativi...');
+          
+          // Lista di percorsi alternativi da provare
+          const percorsi = [
+            'AI_stampa_collaudo.JPG',
+            './AI_stampa_collaudo.JPG',
+            './images/AI_stampa_collaudo.JPG',
+            'images/AI_stampa_collaudo.JPG',
+            '../AI_stampa_collaudo.JPG'
+          ];
+          
+          let currentTry = 0;
+          
+          const tryNextPath = () => {
+            if (currentTry < percorsi.length) {
+              const nuovoPercorso = percorsi[currentTry];
+              console.log(`🔄 Tentativo ${currentTry + 1}: ${nuovoPercorso}`);
+              
+              const testAlt = new Image();
+              testAlt.onload = function() {
+                console.log(`✅ Trovata con: ${nuovoPercorso}`);
+                collaudoImg.src = nuovoPercorso;
+                collaudoImg.style.display = 'block';
+                if (fallbackContainer) fallbackContainer.style.display = 'none';
+              };
+              
+              testAlt.onerror = function() {
+                currentTry++;
+                tryNextPath();
+              };
+              
+              testAlt.src = nuovoPercorso;
+            } else {
+              console.log('🎯 Mostro fallback grafico');
+              // Mantieni il fallback grafico già visibile
+            }
+          };
+          
+          tryNextPath();
+        };
+        
+        testImage.src = collaudoImg.src;
+      }
+
+      // Shortcut tastiera
+      document.addEventListener('keydown', function (ev) {
+        const activeTag = document.activeElement && document.activeElement.tagName.toLowerCase();
+        if ((ev.key === 'h' || ev.key === 'H') && activeTag !== 'input' && activeTag !== 'textarea') {
+          ev.preventDefault();
+          goHome();
+        }
+
+        if ((ev.key === ' ' || ev.key === 'Spacebar') && video) {
+          const focused = document.activeElement;
+          if (focused === cta || focused === video) {
+            ev.preventDefault();
+            if (video.paused) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          }
+        }
+      });
+
+      // Risparmio energetico
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) pauseAllVideos();
+      });
+    });
+  </script>
+</body>
+</html>
